@@ -1,9 +1,25 @@
 {% extends "base.html" %}
+
 {% block content %}
-<h2>Criar Usuário</h2>
-<form method="POST">
-  <label>Nome:</label><br>
-  <input type="text" name="name" required><br><br>
-  <button type="submit">Criar usuário</button>
-</form>
+    <h1>Criar usuário</h1>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <label for="name">Nome</label>
+        <input type="text" name="name" id="name" value="{{ name if name else '' }}" required>
+
+        <br/>
+
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="{{ email if email else '' }}" required>
+
+        <br/>
+        <button type="submit">Cadastrar</button>
+    </form>
+    
+    <br>
+    <a href="{{ url_for('index') }}" class="link">← Voltar para usuários</a>
 {% endblock %}

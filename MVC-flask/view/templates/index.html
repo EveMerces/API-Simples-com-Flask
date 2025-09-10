@@ -1,14 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Index Page</h1>
+    <h1>Usuários</h1>
 
-    <ul>
-        {% for user in users %}
-        <li>{{user.name}} - {{user.email}}</li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('create_user') }}">Página de Cadastro</a> |
-    <a href="{{ url_for('list_tasks') }}">Página de Tarefas</a> |
-    <a href="{{ url_for('contact') }}">Cadastrar Tarefa</a>
+    {% if users %}
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <div class="empty-state">
+            <p>Nenhum usuário cadastrado ainda.</p>
+            <p>Clique em "Cadastro de Usuário" para começar!</p>
+        </div>
+    {% endif %}
+    
+    <br>
+    <a href="{{ url_for('create_user') }}" class="link">👤 Cadastro de Usuário</a> |
+    <a href="{{ url_for('list_tasks') }}" class="link">📋 Página de Tarefas</a>
 {% endblock %}

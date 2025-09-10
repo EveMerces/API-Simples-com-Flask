@@ -2,7 +2,8 @@
 
 {% block content %}
 <h2>Minhas Tarefas</h2>
-<a href="{{ url_for('create_task') }}">+ Nova Tarefa</a>
+<a href="{{ url_for('create_task') }}" class="link">+ Nova Tarefa</a> | 
+<a href="{{ url_for('index') }}" class="link">Voltar para usuários</a>
 <table border="1" cellpadding="5">
     <tr>
         <th>Título</th>
@@ -18,20 +19,22 @@
         <td>{{ task.status }}</td>
         <td>{{ task.user.name }}</td>
         <td>
-    <!-- Formulário para atualizar status -->
-    <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="post" style="display:inline;">
-        {% if task.status == 'Pendente' %}
-            <button type="submit">Entregar</button>
-        {% elif task.status == 'Concluído' %}
-            <button type="submit">Reabrir</button>
-        {% endif %}
-    </form>
+            <div class="actions">
+                <!-- Formulário para atualizar status -->
+                <form action="{{ url_for('update_task_status', task_id=task.id) }}" method="post" style="display:inline;">
+                    {% if task.status == 'Pendente' %}
+                        <button type="submit" class="btn-success">✅ Entregar</button>
+                    {% elif task.status == 'Concluído' %}
+                        <button type="submit">🔄 Reabrir</button>
+                    {% endif %}
+                </form>
 
-    <!-- Formulário para excluir -->
-    <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display:inline;">
-        <button type="submit">Excluir</button>
-    </form>
-</td>
+                <!-- Formulário para excluir -->
+                <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn-danger">🗑️ Excluir</button>
+                </form>
+            </div>
+        </td>
     </tr>
     {% endfor %}
 </table>

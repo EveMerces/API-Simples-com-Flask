@@ -7,39 +7,45 @@ class TaskController:
 
     @staticmethod
     def list_tasks():
-        # TODO buscar todas as tarefas do banco de dados
-        tasks = None 
-        return render_template("tasks.html", tasks=tasks)
+        tasks = Task.query.all()   
+        return render_template('tasks.html', tasks=tasks)
 
     @staticmethod
     def create_task():
-        
-        if request.method == "POST":
-            
-            # TODO capturar dados do formulário (title, description, user_id)
-            # TODO criar um novo objeto Task com os dados capturados
-            # TODO adicionar no db.session e dar commit
-            pass
+        if request.method == 'POST':
+            title = request.form['title']
+            description = request.form['description']
+            user_id = request.form['user_id']
 
-            return redirect(url_for("list_tasks"))
+            nova_tarefa = Task(title=title, description=description, user_id=user_id)
 
-        # TODO buscar todos os usuários para exibir no <select> do formulário
-        users = None
-        return render_template("create_task.html", users=users)
-    
+            db.session.add(nova_tarefa)
+            db.session.commit()
+
+            return redirect('/tasks')
+
+        else:
+            usuarios = User.query.all()
+            return render_template('create_task.html', users=usuarios)
+
+
     @staticmethod
     def update_task_status(task_id):
-        # TODO buscar a tarefa pelo id
-        # TODO: se existir, alternar status entre "Pendente" e "Concluído" e dar commit na alteração
-        pass 
+        tarefa = Task.query.get(task_id)
+        if tarefa:
+            if tarefa.status == 'Pendente':
+                tarefa.status = 'Concluído'
+            else:
+                tarefa.status = 'Pendente'
+            db.session.commit()
+        return redirect('/tasks')
 
-        return redirect(url_for("list_tasks"))
 
     @staticmethod
     def delete_task(task_id):
-        
-        # TODO buscar a tarefa pelo id
-        # TODO: se ela existir, remover do db.session e dar commit
-        pass 
-    
-        return redirect(url_for("list_tasks"))
+        tarefa = Task.query.get(task_id)
+        if tarefa:
+            db.session.delete(tarefa)
+            db.session.commit()
+        return redirect('/tasks')
+
