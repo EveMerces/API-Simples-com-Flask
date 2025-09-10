@@ -13,8 +13,8 @@ Sistema web de gerenciamento de tarefas (To-Do List) desenvolvido com Flask segu
 # Gerenciador de Tarefas com Flask e MVC
 
 **Disciplina:** Desenvolvimento de APIs e Microserviços (DAM)  
-**Integrantes:** [Inserir nomes dos integrantes]  
-**Grupo:** [Inserir número do grupo]  
+**Integrantes:** Anna Julia Higa, Leticia Macedo, Evelyn Mercês
+**Grupo:** 4
 **Instituição:** IMPACTA
 
 ## 🚀 Funcionalidades
