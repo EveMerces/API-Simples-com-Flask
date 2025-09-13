@@ -1,41 +1,38 @@
-# 📁 Repositório: API-Simples-com-Flask
+# API de Gerenciamento de Usuários com Swagger
 
-Este repositório contém duas atividades da disciplina **Desenvolvimento de APIs e Microserviços (DAM)**:
+API RESTful simples desenvolvida com Flask para gerenciar usuários com operações CRUD, agora com documentação automática usando Swagger/OpenAPI.
 
-## 📂 Atividade 1: API-flask
-API RESTful simples para gerenciamento de usuários com operações CRUD.
+## 📋 Informações do Projeto
 
-## 📂 Atividade 2: MVC-flask (Esta atividade)
-Sistema web de gerenciamento de tarefas (To-Do List) desenvolvido com Flask seguindo a arquitetura MVC, permitindo que usuários criem, visualizem, editem e excluam tarefas.
-
----
-
-# Gerenciador de Tarefas com Flask e MVC
-
-**Disciplina:** Desenvolvimento de APIs e Microserviços (DAM)  
-**Integrantes:** Anna Julia Higa, Leticia Macedo, Evelyn Mercês
-**Grupo:** 4
-**Instituição:** IMPACTA
+- **Disciplina:** Desenvolvimento de APIs e Microserviços (DAM)
+- **Integrantes:** Anna Julia Higa Farincho, Letícia Macedo, Evelyn Mercês
+- **Grupo:** 4
+- **Instituição:** IMPACTA
 
 ## 🚀 Funcionalidades
 
-- **Listar Tarefas:** Visualizar todas as tarefas cadastradas
-- **Criar Tarefa:** Adicionar nova tarefa associada a um usuário
-- **Atualizar Status:** Alternar status entre "Pendente" e "Concluído"
-- **Excluir Tarefa:** Remover tarefa do sistema
-- **Relacionamento:** Vinculação de tarefas a usuários existentes
+- **POST /users** - Criar novo usuário
+- **GET /users** - Listar todos os usuários
+- **GET /users/<id>** - Buscar usuário específico
+- **PUT /users/<id>** - Atualizar usuário
+- **DELETE /users/<id>** - Deletar usuário
+- **GET /info** - Informações sobre a API
+
+## 📚 Documentação Swagger
+
+A API possui documentação automática gerada com Swagger/OpenAPI, acessível em:
+- **Swagger UI:** http://localhost:5000/docs/
+- **JSON OpenAPI:** http://localhost:5000/swagger.json
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Python 3.x**
-- **Flask** - Framework web
-- **SQLAlchemy** - ORM para banco de dados
-- **SQLite** - Banco de dados
-- **Jinja2** - Template engine
-- **HTML/CSS** - Interface web
-- **Arquitetura MVC** - Separação de responsabilidades
+- Python 3.x
+- Flask 2.3.3
+- Flask-RESTX 1.3.0 (para Swagger)
+- JSON para troca de dados
+- HTTP Methods (GET, POST, PUT, DELETE)
 
-## 📋 Pré-requisitos
+## 📦 Pré-requisitos
 
 - Python 3.7 ou superior
 - pip (gerenciador de pacotes Python)
@@ -48,134 +45,141 @@ git clone https://github.com/EveMerces/API-Simples-com-Flask.git
 cd API-Simples-com-Flask
 ```
 
-2. **Instale as dependências:**
+2. **Crie um ambiente virtual (recomendado):**
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate     # Windows
+```
+
+3. **Instale as dependências:**
 ```bash
 pip install -r requirements.txt
 ```
 
-3. **Execute a aplicação:**
+4. **Execute a aplicação:**
 ```bash
 python app.py
 ```
 
-4. **Acesse no navegador:**
+A API estará disponível em: http://localhost:5000
+
+## 📖 Como usar a Documentação Swagger
+
+1. **Acesse a documentação:** http://localhost:5000/docs/
+2. **Explore os endpoints:** Todos os endpoints estão listados com descrições detalhadas
+3. **Teste diretamente:** Use o botão "Try it out" para testar os endpoints
+4. **Veja os modelos:** Schemas de request/response estão documentados
+5. **Códigos de resposta:** Todos os códigos HTTP possíveis estão documentados
+
+## 🔍 Testando a API
+
+### Usando Swagger UI (Recomendado)
+1. Acesse http://localhost:5000/docs/
+2. Clique em qualquer endpoint
+3. Clique em "Try it out"
+4. Preencha os dados necessários
+5. Clique em "Execute"
+
+### Usando outras ferramentas
+- **Postman** (recomendado para testes manuais)
+- **cURL** (linha de comando)
+- **Insomnia** (alternativa ao Postman)
+
+## 📝 Exemplos de Uso
+
+### Criar Usuário (POST /users)
+```json
+{
+  "nome": "João Silva",
+  "email": "joao.silva@email.com"
+}
 ```
-http://localhost:5000
+
+**Resposta (201 Created):**
+```json
+{
+  "id": 4,
+  "nome": "João Silva",
+  "email": "joao.silva@email.com"
+}
 ```
 
-## 🏗️ Estrutura do Projeto
-
-```
-projeto/
-├── app.py                      # Arquivo principal com rotas
-├── models/
-│   ├── __init__.py
-│   ├── user.py                 # Model de usuário (existente)
-│   └── task.py                 # Model de tarefa (novo)
-├── controllers/
-│   ├── __init__.py
-│   ├── user_controller.py      # Controller de usuário (existente)
-│   └── task_controller.py      # Controller de tarefa (novo)
-├── views/
-│   └── templates/
-│       ├── users.html          # Template de usuários (existente)
-│       ├── tasks.html          # Template de listagem de tarefas (novo)
-│       └── create_task.html    # Template de criação de tarefa (novo)
-├── users.db                    # Banco de dados SQLite
-└── requirements.txt
+### Listar Usuários (GET /users)
+**Resposta (200 OK):**
+```json
+[
+  {
+    "id": 1,
+    "nome": "Anna Julia Higa Farincho",
+    "email": "anna.julia@email.com"
+  },
+  {
+    "id": 2,
+    "nome": "Letícia Macedo",
+    "email": "leticia.macedo@email.com"
+  }
+]
 ```
 
-## 📊 Modelo de Dados
+### Buscar Usuário Específico (GET /users/{id})
+**Resposta (200 OK):**
+```json
+{
+  "id": 1,
+  "nome": "Anna Julia Higa Farincho",
+  "email": "anna.julia@email.com"
+}
+```
 
-### Tabela Tasks
-- **id** (Integer, PK) - Identificador único
-- **title** (String, NOT NULL) - Título da tarefa
-- **description** (String, NULL) - Descrição da tarefa
-- **status** (String, NOT NULL, DEFAULT 'Pendente') - Status da tarefa
-- **user_id** (Integer, FK) - Referência ao usuário
+## ⚠️ Observações Importantes
 
-### Relacionamento
-- **One-to-Many:** Um usuário pode ter várias tarefas
-- **Foreign Key:** `tasks.user_id` → `users.id`
+- **Armazenamento:** Os dados são armazenados em memória e serão perdidos quando a aplicação for reiniciada
+- **IDs:** São gerados automaticamente de forma incremental
+- **Validação:** A aplicação valida os dados de entrada e retorna códigos de status HTTP apropriados
+- **Estrutura:** Projeto desenvolvido em um único arquivo `app.py` para simplicidade
+- **Email único:** O sistema não permite emails duplicados
 
-## 🌐 Rotas da API
+## 📊 Códigos de Status HTTP
 
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| GET | `/tasks` | Lista todas as tarefas |
-| GET | `/tasks/new` | Formulário para criar nova tarefa |
-| POST | `/tasks/new` | Criar nova tarefa |
-| POST | `/tasks/update/<int:task_id>` | Atualizar status da tarefa |
-| POST | `/tasks/delete/<int:task_id>` | Excluir tarefa |
+- **200 OK** - Operação realizada com sucesso
+- **201 Created** - Recurso criado com sucesso
+- **400 Bad Request** - Dados inválidos ou malformados
+- **404 Not Found** - Recurso não encontrado
 
-## 💻 Exemplos de Uso
+## 🎯 Conceitos Implementados
 
-### Criação de Tarefa
-1. Acesse `/tasks/new`
-2. Preencha o formulário:
-   - **Título:** "Estudar Flask"
-   - **Descrição:** "Revisar conceitos de MVC e SQLAlchemy"
-   - **Usuário:** Selecione um usuário existente
-3. Clique em "Criar Tarefa"
+Este projeto demonstra conceitos fundamentais de:
+- APIs RESTful
+- Framework Flask
+- Operações CRUD
+- Métodos HTTP
+- Manipulação de JSON
+- Status Codes HTTP
+- **Documentação automática com Swagger/OpenAPI**
+- **Validação de dados com Flask-RESTX**
+- **Modelos de dados estruturados**
+- **Organização de código com namespaces**
 
-### Listagem de Tarefas
-- Acesse `/tasks` para ver todas as tarefas
-- Cada tarefa mostra: título, descrição, status e usuário responsável
-- Botões disponíveis: "Concluir/Pendente" e "Excluir"
+## 📈 Melhorias Implementadas
 
-## 🏛️ Arquitetura MVC
+- ✅ Documentação automática com Swagger
+- ✅ Validação robusta de dados
+- ✅ Modelos de dados estruturados
+- ✅ Mensagens de erro padronizadas
+- ✅ Verificação de email único
+- ✅ Interface interativa para testes
+- ✅ Códigos de status HTTP apropriados
+- ✅ Organização melhor do código
 
-### **Model** (`models/task.py`)
-- Define a estrutura da tabela `tasks`
-- Gerencia relacionamentos com a tabela `users`
-- Implementa validações de dados
+## 🔗 Links Úteis
 
-### **View** (`views/templates/`)
-- **tasks.html:** Interface de listagem de tarefas
-- **create_task.html:** Formulário de criação
-- Utiliza Jinja2 para renderização dinâmica
-
-### **Controller** (`controllers/task_controller.py`)
-- **TaskController:** Classe com métodos estáticos
-- Gerencia lógica de negócio
-- Processa requisições entre View e Model
-
-## 📝 Funcionalidades Implementadas
-
-### ✅ CRUD Completo
-- **Create:** Criar nova tarefa
-- **Read:** Listar e visualizar tarefas
-- **Update:** Atualizar status da tarefa
-- **Delete:** Excluir tarefa
-
-### ✅ Relacionamentos
-- Relacionamento One-to-Many entre User e Task
-- Chave estrangeira `user_id` na tabela tasks
-- Consultas com JOIN para exibir nome do usuário
-
-### ✅ Interface Web
-- Templates HTML responsivos
-- Formulários para entrada de dados
-- Listagem organizada em tabela
-- Botões de ação (Concluir/Excluir)
-
-## 🎯 Conceitos Aplicados
-
-Este projeto demonstra a implementação prática de:
-- **Arquitetura MVC** - Separação de responsabilidades
-- **ORM SQLAlchemy** - Mapeamento objeto-relacional
-- **Relacionamentos de Banco** - Foreign Keys e JOINs
-- **Template Engine** - Jinja2 para páginas dinâmicas
-- **Operações CRUD** - Manipulação completa de dados
-- **Framework Flask** - Desenvolvimento web em Python
-
-## 📄 Observações
-
-- **Banco de Dados:** Utiliza SQLite local (`users.db`)
-- **Dados:** Tabela de usuários deve estar previamente populada
-- **Status:** Tarefas alternam entre "Pendente" e "Concluído"
-- **Arquitetura:** Seguimento rigoroso do padrão MVC
+- [Documentação Flask](https://flask.palletsprojects.com/)
+- [Flask-RESTX Documentation](https://flask-restx.readthedocs.io/)
+- [OpenAPI Specification](https://swagger.io/specification/)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/)
 
 ---
 
-*Este projeto foi desenvolvido como atividade da disciplina Desenvolvimento de APIs e Microserviços (DAM) da IMPACTA, aplicando conceitos de arquitetura MVC, relacionamentos de banco de dados e desenvolvimento web com Flask.*
+**Desenvolvido com pelo Grupo 4 - IMPACTA**
